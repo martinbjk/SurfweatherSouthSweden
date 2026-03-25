@@ -5,7 +5,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, ReferenceLine,
 } from 'recharts';
-import { HourlyForecast } from '@/types';
+// import { HourlyForecast } from "@/types";
 import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
