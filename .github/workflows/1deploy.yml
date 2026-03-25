@@ -12,10 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: kustvag   # 🔥 VIKTIG RAD
-
     steps:
       - uses: actions/checkout@v3
 
@@ -32,4 +28,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: kustvag/out
+          publish_dir: ./out
