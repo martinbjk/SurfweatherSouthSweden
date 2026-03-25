@@ -5,13 +5,12 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, ReferenceDot,
 } from 'recharts';
-import { TidePoint } from '@/types';
+// import { TidePoint } from "@/types";
 import { format, parseISO, isToday } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
 interface TideChartProps {
-  tides: TidePoint[];
-}
+  data: any[]
 
 export default function TideChart({ tides }: TideChartProps) {
   // Show today's tides only (or next 24h)
