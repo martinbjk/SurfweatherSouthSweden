@@ -11,6 +11,7 @@ import { sv } from 'date-fns/locale';
 
 interface TideChartProps {
   data: any[]
+}
 
 export default function TideChart({ tides }: TideChartProps) {
   // Show today's tides only (or next 24h)
