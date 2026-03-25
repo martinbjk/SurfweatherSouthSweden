@@ -1,60 +1,18 @@
-// src/components/ui/RatingDisplay.tsx
-import { SurfRating, RATING_INFO } from '@/types';
-
-interface RatingDisplayProps {
-  rating: SurfRating;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  showLabel?: boolean;
-  showStars?: boolean;
-}
-
-export default function RatingDisplay({
-  rating,
-  size = 'md',
-  showLabel = true,
-  showStars = true,
-}: RatingDisplayProps) {
-  const info = RATING_INFO[rating];
-
-  const starSizes = { sm: 14, md: 18, lg: 24, xl: 32 };
-  const labelSizes = {
-    sm: 'text-xs',
-    md: 'text-sm',
-    lg: 'text-base',
-    xl: 'text-xl',
-  };
-
-  const starSize = starSizes[size];
-
-  return (
-    <div className="flex flex-col items-start gap-1">
-      {showStars && (
-        <div className="flex gap-0.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <svg
-              key={i}
-              width={starSize}
-              height={starSize}
-              viewBox="0 0 24 24"
-              aria-hidden
-            >
-              <path
-                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                fill={i < rating ? info.color : 'rgba(255,255,255,0.1)'}
-                strokeWidth="0"
-              />
-            </svg>
-          ))}
-        </div>
-      )}
-      {showLabel && (
-        <span
-          className={`font-display font-700 tracking-wide uppercase ${labelSizes[size]}`}
-          style={{ color: info.color }}
-        >
-          {info.label}
-        </span>
-      )}
-    </div>
-  );
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
