@@ -10,7 +10,7 @@ import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
 interface WaveChartProps {
-  hours: HourlyForecast[];
+ hours: any[];
   showWind?: boolean;
 }
 
