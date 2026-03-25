@@ -13,7 +13,7 @@ interface TideChartProps {
   data: any[]
 }
 
-export default function TideChart({ tides }: TideChartProps) {
+export default function TideChart({ data }: TideChartProps){
   // Show today's tides only (or next 24h)
   const now = new Date();
   const cutoff = new Date(now.getTime() + 24 * 3600000);
