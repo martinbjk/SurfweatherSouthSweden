@@ -1,7 +1,7 @@
 // src/app/api/forecast/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchSpotForecast } from '@/lib/api';
-import { getSpotById } from '@/lib/spots';
+// import { something } from "@/lib/api"
+// import { something } from "@/lib/spots"
 
 export const runtime = 'nodejs';
 export const revalidate = 1800; // 30 min
