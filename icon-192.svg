@@ -1,0 +1,89 @@
+// src/components/ui/Navbar.tsx
+'use client';
+
+import { useState } from 'react';
+import { RefreshCw, Heart, Share2, Waves } from 'lucide-react';
+import { Spot } from '@/types';
+import { RATING_INFO, SurfRating } from '@/types';
+import SpotSelector from './SpotSelector';
+
+interface NavbarProps {
+  spots: Spot[];
+  selectedSpotId: string;
+  ratings?: Record<string, SurfRating>;
+  onSpotSelect: (id: string) => void;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
+  fetchedAt?: string;
+}
+
+export default function Navbar({
+  spots, selectedSpotId, ratings, onSpotSelect, onRefresh, isRefreshing, fetchedAt
+}: NavbarProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const spot = spots.find(s => s.id === selectedSpotId);
+    const url = `${window.location.origin}?spot=${selectedSpotId}`;
+    if (navigator.share) {
+      await navigator.share({ title: `KustVåg – ${spot?.name}`, url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <header className="sticky top-0 z-40 bg-depth-950/90 backdrop-blur-md border-b border-white/[0.06]">
+      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center gap-3">
+        {/* Logo */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-ocean-500/20 border border-ocean-500/30 flex items-center justify-center">
+            <Waves size={14} className="text-ocean-400" />
+          </div>
+          <span className="font-display font-800 text-white tracking-tight hidden sm:block" style={{ fontSize: 17 }}>
+            Kust<span className="wave-text">Våg</span>
+          </span>
+        </div>
+
+        {/* Spot selector */}
+        <div className="flex-1 flex justify-center">
+          <SpotSelector
+            spots={spots}
+            selectedSpotId={selectedSpotId}
+            ratings={ratings}
+            onSelect={onSpotSelect}
+          />
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-1 flex-shrink-0">
+          {fetchedAt && (
+            <span className="text-white/20 hidden md:block" style={{ fontSize: 10 }}>
+              {new Date(fetchedAt).toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}
+          <button
+            onClick={onRefresh}
+            disabled={isRefreshing}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-all touch-manipulation"
+            title="Uppdatera prognos"
+          >
+            <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-ocean-400' : ''} />
+          </button>
+          <button
+            onClick={handleShare}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-all touch-manipulation"
+            title="Dela spot"
+          >
+            {copied
+              ? <span style={{ fontSize: 9 }} className="text-ocean-400 font-mono">✓</span>
+              : <Share2 size={14} />
+            }
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
